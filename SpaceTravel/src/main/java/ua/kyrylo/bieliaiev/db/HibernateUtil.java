@@ -6,10 +6,11 @@ import org.hibernate.cfg.Configuration;
 import ua.kyrylo.bieliaiev.model.Client;
 import ua.kyrylo.bieliaiev.model.Planet;
 
-@Getter
 public class HibernateUtil {
 
+    @Getter
     private static final HibernateUtil INSTANCE;
+    @Getter
     private final SessionFactory sessionFactory;
 
     static {
@@ -21,5 +22,13 @@ public class HibernateUtil {
                 .addAnnotatedClass(Client.class)
                 .addAnnotatedClass(Planet.class)
                 .buildSessionFactory();
+    }
+
+    public static HibernateUtil getInstance() {
+        return INSTANCE;
+    }
+
+    public void close() {
+        sessionFactory.close();
     }
 }
