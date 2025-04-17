@@ -16,8 +16,13 @@ public class PlanetDao implements Dao<Planet, String> {
     public void save(Planet planet) {
         try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
-            session.persist(planet);
-            tx.commit();
+            try {
+                session.persist(planet);
+                tx.commit();
+            } catch (Exception e) {
+                tx.rollback();
+                throw new DataProcessingException("Failed to create planet", e);
+            }
         }
     }
 
@@ -32,8 +37,13 @@ public class PlanetDao implements Dao<Planet, String> {
     public void update(Planet planet) {
         try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
-            session.merge(planet);
-            tx.commit();
+            try {
+                session.merge(planet);
+                tx.commit();
+            } catch (Exception e) {
+                tx.rollback();
+                throw new DataProcessingException("Failed to update planet", e);
+            }
         }
     }
 
@@ -41,8 +51,13 @@ public class PlanetDao implements Dao<Planet, String> {
     public void delete(Planet planet) {
         try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
-            session.remove(planet);
-            tx.commit();
+            try {
+                session.remove(planet);
+                tx.commit();
+            } catch (Exception e) {
+                tx.rollback();
+                throw new DataProcessingException("Failed to delete planet", e);
+            }
         }
     }
 }

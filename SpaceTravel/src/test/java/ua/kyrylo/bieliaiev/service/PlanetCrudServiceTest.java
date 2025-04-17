@@ -1,9 +1,9 @@
 package ua.kyrylo.bieliaiev.service;
 
 import jakarta.transaction.Transactional;
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
+import ua.kyrylo.bieliaiev.dao.DataProcessingException;
 import ua.kyrylo.bieliaiev.db.HibernateUtil;
 import ua.kyrylo.bieliaiev.model.Planet;
 
@@ -31,7 +31,7 @@ class PlanetCrudServiceTest {
     void savePlanetWhenInCorrect() {
         Planet planet = new Planet("INC", "");
 
-        assertThrows(ConstraintViolationException.class, () -> planetService.savePlanet(planet));
+        assertThrows(DataProcessingException.class, () -> planetService.savePlanet(planet));
     }
 
     @Test

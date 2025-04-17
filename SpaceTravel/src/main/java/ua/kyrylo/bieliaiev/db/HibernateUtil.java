@@ -8,7 +8,6 @@ import ua.kyrylo.bieliaiev.model.Planet;
 
 public class HibernateUtil {
 
-    @Getter
     private static final HibernateUtil INSTANCE;
     @Getter
     private final SessionFactory sessionFactory;

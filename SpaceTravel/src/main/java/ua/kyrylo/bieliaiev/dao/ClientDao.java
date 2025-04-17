@@ -16,8 +16,13 @@ public class ClientDao implements Dao<Client, Long> {
     public void save(Client client) {
         try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
-            session.persist(client);
-            tx.commit();
+            try {
+                session.persist(client);
+                tx.commit();
+            } catch (Exception e) {
+                tx.rollback();
+                throw new DataProcessingException("Failed to save client", e);
+            }
         }
     }
 
@@ -32,8 +37,13 @@ public class ClientDao implements Dao<Client, Long> {
     public void update(Client client) {
         try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
-            session.merge(client);
-            tx.commit();
+            try {
+                session.merge(client);
+                tx.commit();
+            } catch (Exception e) {
+                tx.rollback();
+                throw new DataProcessingException("Failed to update client", e);
+            }
         }
     }
 
@@ -41,8 +51,13 @@ public class ClientDao implements Dao<Client, Long> {
     public void delete(Client client) {
         try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
-            session.remove(client);
-            tx.commit();
+            try {
+                session.remove(client);
+                tx.commit();
+            } catch (Exception e) {
+                tx.rollback();
+                throw new DataProcessingException("Failed to delete client", e);
+            }
         }
     }
 }

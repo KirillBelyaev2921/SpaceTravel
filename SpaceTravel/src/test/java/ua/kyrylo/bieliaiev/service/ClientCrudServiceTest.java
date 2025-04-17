@@ -1,9 +1,9 @@
 package ua.kyrylo.bieliaiev.service;
 
 import jakarta.transaction.Transactional;
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
+import ua.kyrylo.bieliaiev.dao.DataProcessingException;
 import ua.kyrylo.bieliaiev.db.HibernateUtil;
 import ua.kyrylo.bieliaiev.model.Client;
 
@@ -31,7 +31,7 @@ class ClientCrudServiceTest {
     void saveClientWhenInCorrect() {
         Client client = new Client("");
 
-        assertThrows(ConstraintViolationException.class, () -> clientService.saveClient(client));
+        assertThrows(DataProcessingException.class, () -> clientService.saveClient(client));
     }
 
     @Test
