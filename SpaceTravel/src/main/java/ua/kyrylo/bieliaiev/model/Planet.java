@@ -17,7 +17,7 @@ import lombok.Setter;
 public class Planet {
 
     @Id
-    @Pattern(regexp = "[A-Z]+")
+    @Pattern(regexp = "^[A-Z]+$")
     private String id;
     @Column(length = 500)
     private String name;
