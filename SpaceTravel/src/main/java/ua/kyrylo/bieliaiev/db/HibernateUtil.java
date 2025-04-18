@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ua.kyrylo.bieliaiev.model.Client;
 import ua.kyrylo.bieliaiev.model.Planet;
+import ua.kyrylo.bieliaiev.model.Ticket;
 
 public class HibernateUtil {
 
@@ -20,6 +21,7 @@ public class HibernateUtil {
         sessionFactory = new Configuration()
                 .addAnnotatedClass(Client.class)
                 .addAnnotatedClass(Planet.class)
+                .addAnnotatedClass(Ticket.class)
                 .buildSessionFactory();
     }
 
