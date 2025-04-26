@@ -3,7 +3,6 @@ package ua.kyrylo.bieliaiev.service;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
-import ua.kyrylo.bieliaiev.dao.DataProcessingException;
 import ua.kyrylo.bieliaiev.db.HibernateUtil;
 import ua.kyrylo.bieliaiev.model.Client;
 import ua.kyrylo.bieliaiev.model.Planet;
@@ -40,7 +39,7 @@ class TicketCrudServiceTest {
     void saveTicketWhenIncorrect() {
         Ticket ticket = new Ticket(null, null, null);
 
-        assertThrows(DataProcessingException.class, () -> ticketService.saveTicket(ticket));
+        assertThrows(IllegalArgumentException.class, () -> ticketService.saveTicket(ticket));
     }
 
     @Test
@@ -82,7 +81,7 @@ class TicketCrudServiceTest {
 
         ticket.setClient(null);
 
-        assertThrows(DataProcessingException.class, () -> ticketService.updateTicket(ticket));
+        assertThrows(IllegalArgumentException.class, () -> ticketService.updateTicket(ticket));
     }
 
     @Test
